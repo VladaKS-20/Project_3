@@ -21,7 +21,7 @@ jobs:
 
     - name: Build
       run: |
-        mpic++ -o Lab3_3 Lab3_3.cpp
+        mpic++ -o Lab3_3 Lab3_3/Lab3_3/Lab3_3.cpp
 
     - name: Run tests
       run: |
