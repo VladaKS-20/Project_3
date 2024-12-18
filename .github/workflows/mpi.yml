@@ -25,4 +25,4 @@ jobs:
 
     - name: Run tests
       run: |
-        mpirun -np 4 ./Lab
+        mpirun --oversubscribe -np 4 ./Lab
