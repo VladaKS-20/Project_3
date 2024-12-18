@@ -12,6 +12,7 @@ double f(double x, double A, double B) {
     return x * x + A * x + B;
 }
 
+
 // Поиск корня на подотрезке методом перебора
 bool find_root_on_subinterval(double start, double end, double step, double A, double B, double& root) {
     double prev_value = f(start, A, B);
@@ -25,6 +26,7 @@ bool find_root_on_subinterval(double start, double end, double step, double A, d
     }
     return false; // Корень не найден
 }
+
 
 int main(int argc, char* argv[]) {
     MPI_Init(&argc, &argv);
@@ -42,6 +44,7 @@ int main(int argc, char* argv[]) {
         cout << "Введите A, B, Z: "<<endl;
         cin >> A >> B >> Z;
     }
+    
 
     // Рассылаем параметры всем процессам
     MPI_Bcast(&A, 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
@@ -53,14 +56,17 @@ int main(int argc, char* argv[]) {
     double start = -Z + rank * interval_length;
     double end = start + interval_length;
 
+    
     // Поиск корня на подотрезке
     double root = numeric_limits<double>::max();
     bool found = find_root_on_subinterval(start, end, step, A, B, root);
 
+    
     // Собираем результаты от всех процессов
     double global_root = numeric_limits<double>::max();
     MPI_Reduce(&root, &global_root, 1, MPI_DOUBLE, MPI_MIN, 0, MPI_COMM_WORLD);
 
+    
     // Вывод результата
     if (rank == 0) {
         if (global_root != numeric_limits<double>::max()) {
