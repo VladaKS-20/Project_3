@@ -62,8 +62,7 @@ int main(int argc, char* argv[]) {
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &size);
 
-    // Проверьте, запущена ли программа в режиме тестов
-    if (argc > 1 && strcmp(argv[1], "--test") == 0) {
+    
         if (rank == 0) {
             cout << "Запускаем тесты..." << endl;
         }
@@ -78,46 +77,10 @@ int main(int argc, char* argv[]) {
             cout << "Все тесты пройдены!" << endl;
         }
 
-        MPI_Finalize();
-        return 0;
-    }
 
-    // Обычное выполнение программы
-    double A, B, Z;
-    double step = 0.001; // Шаг поиска
+   
 
-    if (rank == 0) {
-        cout << "Введите A, B, Z: " << endl;
-        cin >> A >> B >> Z;
-    }
-
-    // Рассылаем параметры всем процессам
-    MPI_Bcast(&A, 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
-    MPI_Bcast(&B, 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
-    MPI_Bcast(&Z, 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
-
-    // Вычисляем подотрезки
-    double interval_length = 2 * Z / size;
-    double start = -Z + rank * interval_length;
-    double end = start + interval_length;
-
-    // Поиск корня на подотрезке
-    double root = numeric_limits<double>::max();
-    bool found = find_root_on_subinterval(start, end, step, A, B, root);
-
-    // Собираем результаты от всех процессов
-    double global_root = numeric_limits<double>::max();
-    MPI_Reduce(&root, &global_root, 1, MPI_DOUBLE, MPI_MIN, 0, MPI_COMM_WORLD);
-
-    // Вывод результата
-    if (rank == 0) {
-        if (global_root != numeric_limits<double>::max()) {
-            cout << "Корень найден: " << global_root << endl;
-        }
-        else {
-            cout << "Не найден корень на интервале [-" << Z << "; " << Z << "]" << endl;
-        }
-    }
+    
 
     MPI_Finalize();
     return 0;
