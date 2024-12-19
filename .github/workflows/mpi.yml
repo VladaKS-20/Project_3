@@ -21,8 +21,8 @@ jobs:
 
     - name: Build
       run: |
-        mpic++ -o Lab Lab3_3/Lab3_3/Lab3_3.cpp
+        mpic++ -o test1 Test.cpp 
 
     - name: Run tests
       run: |
-        mpirun --oversubscribe -np 4 ./Test.cpp
+        mpirun --oversubscribe -np 4 ./test1
