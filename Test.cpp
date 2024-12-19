@@ -50,7 +50,7 @@ void test_root(int rank, double A, double B, double Z, double expected_root) {
     }
 
     if (rank == 0) {
-        root = round(computed_root * 1000) / 1000; // Округляем до трёх знаков
+        root = round(root * 1000) / 1000; // Округляем до трёх знаков
         cout << "Тест пройден,найденные корни: " << root << endl;
     }
 }
