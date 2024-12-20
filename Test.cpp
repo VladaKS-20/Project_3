@@ -17,13 +17,13 @@ bool find_root_on_subinterval(double start, double end, double step, double A, d
     double prev_value = f(start, A, B);
     for (double x = start; x <= end; x += step) {
         double curr_value = f(x, A, B);
-        if (prev_value * curr_value <= 0) { // Проверка смены знака
-            root = x - step / 2; // Приближение корня
+        if (prev_value * curr_value <= 0) {  // Проверка смены знака
+            root = x - step / 2;             // Приближение корня
             return true;
         }
         prev_value = curr_value;
     }
-    return false; // Корень не найден
+    return false;     // Корень не найден
 }
 
 // Тестовая функция
@@ -51,7 +51,7 @@ void test_root(int rank, double A, double B, double Z, double expected_root) {
 
     if (rank == 0) {
         root = round(root * 1000) / 1000; // Округляем до трёх знаков
-        cout << "Тест пройден,найденные корни: " << root << endl;
+        cout << "Тест пройден, найденные корни: " << root << endl;
     }
 }
 
@@ -65,7 +65,7 @@ int main(int argc, char* argv[]) {
 
     
         if (rank == 0) {
-            cout << "Запускаем тесты..." << endl;
+            cout << "Запуск тестов..." << endl;
         }
 
         // Запуск тестов
@@ -79,10 +79,6 @@ int main(int argc, char* argv[]) {
             cout << "Все тесты пройдены!" << endl;
         }
 
-
-   
-
-    
 
     MPI_Finalize();
     return 0;
