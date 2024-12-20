@@ -69,15 +69,10 @@ int main(int argc, char* argv[]) {
         }
 
         // Запуск тестов
-         if (rank == 0) {
-        test_root(rank, -3, 2, 3, 1);                       // Известный корень
-    } else if (rank == 1) {
-        test_root(rank, -4, 4, 3, 2);                       // Двойной корень
-    } else if (rank == 2) {
-        test_root(rank, 1, 1, 3, numeric_limits<double>::max()); // Без корня
-    } else if (rank == 3) {
-        test_root(rank, 0, -1, 3, -1);                      // Множественные корни
-    }
+    test_root(rank, -3, 2, 3, 1);                       // Известный корень
+    test_root(rank, -4, 4, 3, 2);                       // Двойной корень
+    test_root(rank, 1, 1, 3, numeric_limits<double>::max()); // Без корня
+    test_root(rank, 0, -1, 3, -1);                      // Множественные корни
 
     // Синхронизация процессов
     MPI_Barrier(MPI_COMM_WORLD);
